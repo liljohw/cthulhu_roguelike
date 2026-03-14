@@ -1,18 +1,18 @@
-# GUIA COMPLETO - VERSÃO ALPHA JOGÁVEL
-## PtahsTale - Implementação Passo a Passo
+ï»¿# GUIA COMPLETO - VERSï¿½O ALPHA JOGï¿½VEL
+## PtahsTale - Implementaï¿½ï¿½o Passo a Passo
 
 ---
 
-## ?? SUMÁRIO
+## ?? SUMï¿½RIO
 
 1. [Arquivos C++ Criados](#arquivos-cpp-criados)
-2. [Configurações de Projeto](#configurações-de-projeto)
-3. [Compilação do Código](#compilação-do-código)
-4. [Configuração no Editor UE5](#configuração-no-editor-ue5)
+2. [Configuraï¿½ï¿½es de Projeto](#configuraï¿½ï¿½es-de-projeto)
+3. [Compilaï¿½ï¿½o do Cï¿½digo](#compilaï¿½ï¿½o-do-cï¿½digo)
+4. [Configuraï¿½ï¿½o no Editor UE5](#configuraï¿½ï¿½o-no-editor-ue5)
 5. [Sistema de Input](#sistema-de-input)
 6. [Sistema de Combate](#sistema-de-combate)
 7. [Sistema de Inimigos e IA](#sistema-de-inimigos-e-ia)
-8. [Geração Procedural de Mapa](#geração-procedural-de-mapa)
+8. [Geraï¿½ï¿½o Procedural de Mapa](#geraï¿½ï¿½o-procedural-de-mapa)
 9. [Menu Principal](#menu-principal)
 10. [Sistema de Game Over](#sistema-de-game-over)
 11. [Teste Final](#teste-final)
@@ -23,11 +23,11 @@
 
 Os seguintes arquivos foram criados automaticamente:
 
-### Sistema de Saúde
+### Sistema de Saï¿½de
 - `Source/PtahsTale/Combat/HealthComponent.h`
 - `Source/PtahsTale/Combat/HealthComponent.cpp`
 
-### Sistema de Projéteis
+### Sistema de Projï¿½teis
 - `Source/PtahsTale/Combat/Projectile.h`
 - `Source/PtahsTale/Combat/Projectile.cpp`
 
@@ -37,13 +37,13 @@ Os seguintes arquivos foram criados automaticamente:
 
 ---
 
-## 2. CONFIGURAÇÕES DE PROJETO
+## 2. CONFIGURAï¿½ï¿½ES DE PROJETO
 
 ### 2.1. Atualizar PtahsTale.Build.cs
 
 **?? Arquivo:** `Source/PtahsTale/PtahsTale.Build.cs`
 
-**Ação:** Substituir o conteúdo completo por:
+**Aï¿½ï¿½o:** Substituir o conteï¿½do completo por:
 
 ```csharp
 using UnrealBuildTool;
@@ -79,24 +79,24 @@ public class PtahStale : ModuleRules
 
 ---
 
-## 3. COMPILAÇÃO DO CÓDIGO
+## 3. COMPILAï¿½ï¿½O DO Cï¿½DIGO
 
 ### 3.1. Fechar o Editor Unreal Engine (se estiver aberto)
 
 ### 3.2. Compilar no Visual Studio
 
-1. Abra a solução `PtahsTale.sln` no Visual Studio
-2. No **Solution Explorer**, clique com botão direito em **PtahsTale** (projeto)
+1. Abra a soluï¿½ï¿½o `PtahsTale.sln` no Visual Studio
+2. No **Solution Explorer**, clique com botï¿½o direito em **PtahsTale** (projeto)
 3. Selecione **Build**
-4. Aguarde a compilação completar (**Build succeeded** deve aparecer)
+4. Aguarde a compilaï¿½ï¿½o completar (**Build succeeded** deve aparecer)
 
-### 3.3. Se houver erros de compilação:
+### 3.3. Se houver erros de compilaï¿½ï¿½o:
 
-#### Possível erro: "Não encontrou HealthComponent"
-**Solução:** Verifique se o arquivo está na pasta correta: `Source/PtahsTale/Combat/`
+#### Possï¿½vel erro: "Nï¿½o encontrou HealthComponent"
+**Soluï¿½ï¿½o:** Verifique se o arquivo estï¿½ na pasta correta: `Source/PtahsTale/Combat/`
 
-#### Possível erro: "Projectile.h not found"
-**Solução:** Regenere os arquivos do projeto:
+#### Possï¿½vel erro: "Projectile.h not found"
+**Soluï¿½ï¿½o:** Regenere os arquivos do projeto:
 1. Feche Visual Studio
 2. Clique direito em `PtahsTale.uproject`
 3. Selecione **Generate Visual Studio project files**
@@ -104,7 +104,7 @@ public class PtahStale : ModuleRules
 
 ---
 
-## 4. CONFIGURAÇÃO NO EDITOR UE5
+## 4. CONFIGURAï¿½ï¿½O NO EDITOR UE5
 
 ### 4.1. Abrir o Projeto
 
@@ -117,7 +117,7 @@ public class PtahStale : ModuleRules
 
 ### 5.1. Criar Input Actions
 
-**?? Localização:** Content Browser ? `Content/Input/Actions/`
+**?? Localizaï¿½ï¿½o:** Content Browser ? `Content/ThirdPerson/Input/Actions/`
 
 1. Clique direito ? **Input** ? **Input Action**
 2. Crie os seguintes Input Actions:
@@ -132,7 +132,7 @@ public class PtahStale : ModuleRules
 
 ### 5.2. Criar Input Mapping Context
 
-**?? Localização:** Content Browser ? `Content/Input/`
+**?? Localizaï¿½ï¿½o:** Content Browser ? `Content/ThirdPerson/Input/`
 
 1. Clique direito ? **Input** ? **Input Mapping Context**
 2. Nomeie como `IMC_Default`
@@ -146,7 +146,7 @@ public class PtahStale : ModuleRules
 | `IA_Shoot` | Left Mouse Button | - |
 | `IA_Sprint` | Left Shift | - |
 
-**Configuração detalhada:**
+**Configuraï¿½ï¿½o detalhada:**
 
 **IA_Move:**
 - Adicione **Keyboard ? W**
@@ -167,7 +167,7 @@ public class PtahStale : ModuleRules
 
 ## 6. SISTEMA DE COMBATE
 
-### 6.1. Criar Blueprint de Projétil
+### 6.1. Criar Blueprint de Projï¿½til
 
 1. Content Browser ? `Content/Blueprints/Combat/`
 2. Clique direito ? **Blueprint Class**
@@ -218,7 +218,7 @@ public class PtahStale : ModuleRules
    - Selecione **HealthComponent**
    - **Max Health:** `100.0`
 4. **Mesh Component:**
-   - Adicione uma mesh temporária (ex: Engine Content ? Mannequin)
+   - Adicione uma mesh temporï¿½ria (ex: Engine Content ? Mannequin)
 5. **Compile** e **Save**
 
 ---
@@ -227,7 +227,7 @@ public class PtahStale : ModuleRules
 
 ### 7.1. Criar Blueprint de Inimigo Base
 
-**?? NOTA:** O arquivo BaseEnemy.h/.cpp já existe no projeto. Vamos criar o Blueprint.
+**?? NOTA:** O arquivo BaseEnemy.h/.cpp jï¿½ existe no projeto. Vamos criar o Blueprint.
 
 1. Content Browser ? `Content/Blueprints/Enemies/`
 2. Clique direito ? **Blueprint Class**
@@ -281,7 +281,7 @@ Move To Actor or Location
 
 ---
 
-## 8. GERAÇÃO PROCEDURAL DE MAPA
+## 8. GERAï¿½ï¿½O PROCEDURAL DE MAPA
 
 ### 8.1. Criar Blueprint de World Generator
 
@@ -306,7 +306,7 @@ Adicione este Blueprint code:
 ```
 Event BeginPlay
 ?
-Generate (função do C++)
+Generate (funï¿½ï¿½o do C++)
 ?
 For Each Loop (Generated Rooms)
   ?
@@ -330,7 +330,7 @@ For Each Loop (Generated Rooms)
 1. **File ? New Level ? Empty Level**
 2. Salve como `TestDungeon` em `Content/Maps/`
 3. Arraste `BP_WorldGenerator` para o level
-4. **World Settings ? GameMode Override:** (veja próximo passo)
+4. **World Settings ? GameMode Override:** (veja prï¿½ximo passo)
 
 ---
 
@@ -355,7 +355,7 @@ For Each Loop (Generated Rooms)
 
 3. **Graph Tab:**
 
-**Botão Start Game:**
+**Botï¿½o Start Game:**
 ```
 On Clicked (Event)
 ?
@@ -363,7 +363,7 @@ Open Level (by Name)
   - Level Name: "TestDungeon"
 ```
 
-**Botão Quit:**
+**Botï¿½o Quit:**
 ```
 On Clicked (Event)
 ?
@@ -424,7 +424,7 @@ Set Input Mode UI Only
 
 2. **Graph:**
 
-**Botão Restart:**
+**Botï¿½o Restart:**
 ```
 On Clicked
 ?
@@ -432,7 +432,7 @@ Open Level (by Name)
   - Level Name: "TestDungeon"
 ```
 
-**Botão Main Menu:**
+**Botï¿½o Main Menu:**
 ```
 On Clicked
 ?
@@ -473,7 +473,7 @@ Bind Event to On Death
 
 ### 11.1. Checklist antes de testar:
 
-- [ ] Código C++ compilou sem erros
+- [ ] Cï¿½digo C++ compilou sem erros
 - [ ] Input Actions criados (IA_Move, IA_Look, IA_Jump, IA_Shoot, IA_Sprint)
 - [ ] Input Mapping Context configurado (IMC_Default)
 - [ ] BP_Projectile criado e configurado
@@ -502,50 +502,50 @@ Bind Event to On Death
 
 3. **Testar Tiro:**
    - **Left Mouse Button** para atirar
-   - Projéteis devem spawnar e voar
+   - Projï¿½teis devem spawnar e voar
 
 4. **Testar Inimigos:**
    - Inimigos devem aparecer no mapa procedural
-   - Devem perseguir o jogador quando próximos
+   - Devem perseguir o jogador quando prï¿½ximos
    - Atirar nos inimigos deve causar dano
 
 5. **Testar Game Over:**
-   - Deixe os inimigos atacarem até sua vida zerar
+   - Deixe os inimigos atacarem atï¿½ sua vida zerar
    - Widget de Game Over deve aparecer
 
 ---
 
 ## 12. TROUBLESHOOTING
 
-### Problema: Personagem não se move
-**Solução:** Verifique se IMC_Default está atribuído em BP_PlayerCharacter
+### Problema: Personagem nï¿½o se move
+**Soluï¿½ï¿½o:** Verifique se IMC_Default estï¿½ atribuï¿½do em BP_PlayerCharacter
 
-### Problema: Tiro não funciona
-**Solução:** Verifique se BP_Projectile está atribuído em Projectile Class
+### Problema: Tiro nï¿½o funciona
+**Soluï¿½ï¿½o:** Verifique se BP_Projectile estï¿½ atribuï¿½do em Projectile Class
 
-### Problema: Inimigos não aparecem
-**Solução:** Certifique-se que BP_WorldGenerator chamou Generate() no BeginPlay
+### Problema: Inimigos nï¿½o aparecem
+**Soluï¿½ï¿½o:** Certifique-se que BP_WorldGenerator chamou Generate() no BeginPlay
 
-### Problema: Game Over não aparece
-**Solução:** Verifique se o evento On Death está bound no Event Graph
+### Problema: Game Over nï¿½o aparece
+**Soluï¿½ï¿½o:** Verifique se o evento On Death estï¿½ bound no Event Graph
 
 ---
 
-## 13. MELHORIAS FUTURAS (PÓS-ALPHA)
+## 13. MELHORIAS FUTURAS (Pï¿½S-ALPHA)
 
-- [ ] Adicionar animações para personagem e inimigos
+- [ ] Adicionar animaï¿½ï¿½es para personagem e inimigos
 - [ ] Adicionar sons de tiro, dano, morte
 - [ ] Adicionar HUD com vida do jogador
-- [ ] Melhorar geração de mapa com corredores
+- [ ] Melhorar geraï¿½ï¿½o de mapa com corredores
 - [ ] Adicionar diferentes tipos de inimigos
 - [ ] Adicionar sistema de armas diferentes
-- [ ] Adicionar pickups (munição, vida)
+- [ ] Adicionar pickups (muniï¿½ï¿½o, vida)
 
 ---
 
-## ? CONCLUSÃO
+## ? CONCLUSï¿½O
 
-Após seguir este guia, você terá uma versão alpha jogável com:
+Apï¿½s seguir este guia, vocï¿½ terï¿½ uma versï¿½o alpha jogï¿½vel com:
 - ? Movimento (andar, pular, correr)
 - ? Sistema de tiro
 - ? Menu principal
@@ -555,3 +555,4 @@ Após seguir este guia, você terá uma versão alpha jogável com:
 - ? Game Over
 
 **Divirta-se testando! ??**
+

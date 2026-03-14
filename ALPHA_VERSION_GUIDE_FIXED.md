@@ -115,52 +115,64 @@ public class PtahStale : ModuleRules
 
 ## 5. SISTEMA DE INPUT
 
-### 5.1. Criar Input Actions
+### 5.1. Input Actions - Assets Existentes e Novos
 
-**?? Localização:** Content Browser ? `Content/Input/Actions/`
+**?? Localização:** Content Browser ? `Content/ThirdPerson/Input/Actions/`
 
-1. Clique direito ? **Input** ? **Input Action**
-2. Crie os seguintes Input Actions:
+**? JÁ EXISTENTES NO PROJETO:**
+- `IA_Move` - Input Action Value Type: **Axis2D (Vector 2D)**
+- `IA_Look` - Input Action Value Type: **Axis2D (Vector 2D)**
+- `IA_Jump` - Input Action Value Type: **Digital (bool)**
+
+**?? A CRIAR:**
+1. No Content Browser, navegue para `Content/ThirdPerson/Input/Actions/`
+2. Clique direito ? **Input** ? **Input Action**
+3. Crie os seguintes Input Actions:
 
 | Nome do Arquivo | Tipo de Valor |
 |---|---|
-| `IA_Move` | Input Action Value Type: **Axis2D (Vector 2D)** |
-| `IA_Look` | Input Action Value Type: **Axis2D (Vector 2D)** |
-| `IA_Jump` | Input Action Value Type: **Digital (bool)** |
 | `IA_Shoot` | Input Action Value Type: **Digital (bool)** |
 | `IA_Sprint` | Input Action Value Type: **Digital (bool)** |
 
-### 5.2. Criar Input Mapping Context
+### 5.2. Input Mapping Context - Usar Existente
 
-**?? Localização:** Content Browser ? `Content/Input/`
+**?? Localização:** Content Browser ? `Content/ThirdPerson/Input/`
 
-1. Clique direito ? **Input** ? **Input Mapping Context**
-2. Nomeie como `IMC_Default`
-3. Abra e adicione os mappings:
+**? JÁ EXISTE:** `IMC_Default.uasset`
+
+**Ação:** Atualizar o mapping context existente:
+
+1. Abra `IMC_Default` (duplo clique)
+2. Verifique se os mappings existentes estão configurados:
 
 | Input Action | Teclas/Mouse | Modificadores |
 |---|---|---|
 | `IA_Move` | W,A,S,D | W/S = Eixo Y, A/D = Eixo X |
 | `IA_Look` | Mouse XY 2D-Axis | - |
 | `IA_Jump` | Space | - |
+
+3. **Adicione os novos mappings:**
+
+| Input Action | Teclas/Mouse | Modificadores |
+|---|---|---|
 | `IA_Shoot` | Left Mouse Button | - |
 | `IA_Sprint` | Left Shift | - |
 
-**Configuração detalhada:**
+4. **Save**
 
-**IA_Move:**
-- Adicione **Keyboard ? W**
+**Configuração detalhada de IA_Move (se necessário ajustar):**
+- **Keyboard ? W**
   - Modifiers ? Swizzle Input Axis Values ? **Order: XZY**
-- Adicione **Keyboard ? S**
+- **Keyboard ? S**
   - Modifiers ? Swizzle Input Axis Values ? **Order: XZY**
   - Modifiers ? Negate ? **Y: true**
-- Adicione **Keyboard ? A**
+- **Keyboard ? A**
   - Modifiers ? Negate ? **X: true**
-- Adicione **Keyboard ? D**
+- **Keyboard ? D**
   - (sem modificadores)
 
 **IA_Look:**
-- Adicione **Mouse ? Mouse XY 2D-Axis**
+- **Mouse ? Mouse XY 2D-Axis**
   - (sem modificadores)
 
 ---
@@ -169,8 +181,8 @@ public class PtahStale : ModuleRules
 
 ### 6.1. Criar Blueprint de Projétil
 
-1. Content Browser ? `Content/Blueprints/Combat/`
-2. Clique direito ? **Blueprint Class**
+1. Content Browser ? Crie a pasta `Content/Blueprints/Combat/` (clique direito ? New Folder)
+2. Dentro de `Combat/`, clique direito ? **Blueprint Class**
 3. Parent Class: **Projectile** (procure por "Projectile" criado em C++)
 4. Nome: `BP_Projectile`
 
@@ -191,20 +203,20 @@ public class PtahStale : ModuleRules
 
 ### 6.2. Criar Blueprint de Personagem do Jogador
 
-**NOTA:** O projeto j? possui `Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter` que pode ser usado para testes iniciais.
+**? NOTA:** O projeto já possui `Content/ThirdPerson/Blueprints/BP_ThirdPersonCharacter` que pode ser usado para testes iniciais.
 
 **Para criar um novo baseado no seu C++ Character:**
 
-1. Content Browser ? Crie a pasta `Content/Blueprints/Player/` (se n?o existir)
+1. Content Browser ? Crie a pasta `Content/Blueprints/Player/` (se não existir)
 2. Clique direito ? **Blueprint Class**
-3. Parent Class: **PtahStaleCharacter** (seu C++ class)
+3. Parent Class: **PtahStaleCharacter** (procure pelo seu C++ class)
 4. Nome: `BP_PlayerCharacter`
 
 **Configurar BP_PlayerCharacter:**
 
 1. Abra `BP_PlayerCharacter`
 2. **Class Defaults (painel direito):**
-   - **Default Mapping Context:** Selecione `IMC_Default`
+   - **Default Mapping Context:** Selecione `IMC_Default` (de ThirdPerson/Input/)
    - **Jump Action:** Selecione `IA_Jump`
    - **Move Action:** Selecione `IA_Move`
    - **Look Action:** Selecione `IA_Look`
@@ -229,7 +241,7 @@ public class PtahStale : ModuleRules
 
 **?? NOTA:** O arquivo BaseEnemy.h/.cpp já existe no projeto. Vamos criar o Blueprint.
 
-1. Content Browser ? `Content/Blueprints/Enemies/`
+1. Content Browser ? Crie a pasta `Content/Blueprints/Enemies/` (se não existir)
 2. Clique direito ? **Blueprint Class**
 3. Parent Class: **BaseEnemy** (procure pelo C++ class)
 4. Nome: `BP_BaseEnemy`
@@ -252,7 +264,7 @@ public class PtahStale : ModuleRules
 
 ### 7.2. Criar AI Controller
 
-1. Content Browser ? Crie a pasta `Content/Blueprints/AI/` (se n?o existir)
+1. Content Browser ? Crie a pasta `Content/Blueprints/AI/` (se não existir)
 2. Clique direito ? **Blueprint Class**
 3. Parent Class: **AIController**
 4. Nome: `BP_EnemyAIController`
@@ -285,7 +297,7 @@ Move To Actor or Location
 
 ### 8.1. Criar Blueprint de World Generator
 
-1. Content Browser ? Crie a pasta `Content/Blueprints/Procedural/` (se n?o existir)
+1. Content Browser ? Crie a pasta `Content/Blueprints/Procedural/` (se não existir)
 2. Clique direito ? **Blueprint Class**
 3. Parent Class: **ProceduralWorldGenerator** (C++ class)
 4. Nome: `BP_WorldGenerator`
@@ -325,12 +337,19 @@ For Each Loop (Generated Rooms)
 
 4. **Compile** e **Save**
 
-### 8.2. Criar Mapa de Teste
+### 8.2. Criar ou Usar Mapa de Teste
+
+**? OPÇÃO 1: Usar Mapa Existente para Testes Rápidos**
+- O projeto já possui `Content/ThirdPerson/Maps/ThirdPersonMap.umap`
+- Abra este mapa para testes iniciais
+
+**?? OPÇÃO 2: Criar Novo Mapa para Sistema Procedural**
 
 1. **File ? New Level ? Empty Level**
-2. Salve como `TestDungeon` em `Content/Maps/`
-3. Arraste `BP_WorldGenerator` para o level
-4. **World Settings ? GameMode Override:** (veja próximo passo)
+2. Crie a pasta `Content/Maps/` (se não existir)
+3. Salve como `TestDungeon` em `Content/Maps/`
+4. Arraste `BP_WorldGenerator` para o level
+5. **World Settings ? GameMode Override:** (configure nas próximas seções)
 
 ---
 
@@ -338,7 +357,7 @@ For Each Loop (Generated Rooms)
 
 ### 9.1. Criar Widget do Menu Principal
 
-1. Content Browser ? Crie a pasta `Content/UI/` (se n?o existir)
+1. Content Browser ? Crie a pasta `Content/UI/` (se não existir)
 2. Clique direito ? **User Interface ? Widget Blueprint**
 3. Nome: `WBP_MainMenu`
 
@@ -360,7 +379,7 @@ For Each Loop (Generated Rooms)
 On Clicked (Event)
 ?
 Open Level (by Name)
-  - Level Name: "TestDungeon"
+  - Level Name: "TestDungeon" ou "ThirdPersonMap"
 ```
 
 **Botão Quit:**
@@ -426,15 +445,17 @@ Set Input Mode UI Only
 
 **Botão Restart:**
 ```
-On Clicked
+On Clicked (Event)
+?
+Get Current Level Name
 ?
 Open Level (by Name)
-  - Level Name: "TestDungeon"
+  - Level Name: (use o nome retornado)
 ```
 
 **Botão Main Menu:**
 ```
-On Clicked
+On Clicked (Event)
 ?
 Open Level (by Name)
   - Level Name: "MainMenu"
@@ -442,116 +463,105 @@ Open Level (by Name)
 
 3. **Compile** e **Save**
 
-### 10.2. Configurar Game Over no Player
+### 10.2. Conectar ao Sistema de Saúde
 
-1. Abra `BP_PlayerCharacter`
-2. **Event Graph:**
+No **HealthComponent.cpp** (se ainda não implementado), adicione:
 
-```
-Event BeginPlay
-?
-(Get HealthComponent)
-?
-Bind Event to On Death
-  ?
-  Create Widget (WBP_GameOver)
-  ?
-  Add to Viewport
-  ?
-  Set Show Mouse Cursor (true)
-  ?
-  Set Input Mode UI Only
-  ?
-  Set Game Paused (true)
+```cpp
+// Quando a vida chegar a zero
+if (Health <= 0.0f)
+{
+    OnDeath.Broadcast();
+}
 ```
 
-3. **Compile** e **Save**
+No **BP_PlayerCharacter**, Event Graph:
+
+```
+Event On Death (do HealthComponent)
+?
+Create Widget
+  - Class: WBP_GameOver
+?
+Add to Viewport
+?
+Set Show Mouse Cursor (true)
+?
+Set Input Mode UI Only
+?
+Set Game Paused (true)
+```
 
 ---
 
 ## 11. TESTE FINAL
 
-### 11.1. Checklist antes de testar:
+### 11.1. Teste Rápido com Assets Existentes
 
-- [ ] Código C++ compilou sem erros
-- [ ] Input Actions criados (IA_Move, IA_Look, IA_Jump, IA_Shoot, IA_Sprint)
-- [ ] Input Mapping Context configurado (IMC_Default)
+1. Abra `Content/ThirdPerson/Maps/ThirdPersonMap`
+2. Pressione **Play** (Alt+P)
+3. Teste movimento (WASD), câmera (Mouse), pulo (Space)
+
+### 11.2. Teste Completo do Sistema
+
+1. Certifique-se de que todos os Blueprints estão salvos e compilados
+2. Feche o editor e reabra o projeto
+3. O `MainMenu` deve abrir automaticamente
+4. Clique em "Start Game"
+5. Teste:
+   - Movimento e câmera
+   - Sprint (Shift)
+   - Pulo (Space)
+   - Tiro (Left Mouse Button)
+   - Colisão com inimigos
+   - Sistema de dano
+   - Game Over ao morrer
+
+### 11.3. Debugging
+
+Se algo não funcionar:
+
+1. **Verifique o Output Log** (Window ? Developer Tools ? Output Log)
+2. **Verifique as referências** nos Blueprints (procure por "?" ou broken references)
+3. **Recompile** todos os Blueprints
+4. **Regenere** os project files do Visual Studio
+
+---
+
+## ? CHECKLIST FINAL
+
+- [ ] Todos os arquivos C++ compilam sem erros
+- [ ] Input Actions criados (IA_Shoot, IA_Sprint)
+- [ ] IMC_Default atualizado com novos mappings
 - [ ] BP_Projectile criado e configurado
-- [ ] BP_PlayerCharacter criado e configurado com inputs
-- [ ] BP_BaseEnemy criado
+- [ ] BP_PlayerCharacter criado e configurado
+- [ ] BP_BaseEnemy criado e configurado
 - [ ] BP_EnemyAIController criado
-- [ ] BP_WorldGenerator criado
-- [ ] TestDungeon map criado com World Generator
+- [ ] BP_WorldGenerator criado (opcional para alpha)
 - [ ] WBP_MainMenu criado
-- [ ] MainMenu map criado
 - [ ] WBP_GameOver criado
-- [ ] Project Settings ? Default Maps configurados
-
-### 11.2. Como Testar:
-
-1. **Play from Main Menu:**
-   - Clique **Play** no editor
-   - Deve abrir o menu principal
-   - Clique "Start Game"
-
-2. **Testar Movimento:**
-   - **W,A,S,D** para mover
-   - **Space** para pular
-   - **Shift** para correr
-   - **Mouse** para olhar ao redor
-
-3. **Testar Tiro:**
-   - **Left Mouse Button** para atirar
-   - Projéteis devem spawnar e voar
-
-4. **Testar Inimigos:**
-   - Inimigos devem aparecer no mapa procedural
-   - Devem perseguir o jogador quando próximos
-   - Atirar nos inimigos deve causar dano
-
-5. **Testar Game Over:**
-   - Deixe os inimigos atacarem até sua vida zerar
-   - Widget de Game Over deve aparecer
+- [ ] Maps configurados (MainMenu, TestDungeon ou ThirdPersonMap)
+- [ ] Teste de gameplay funcionando
 
 ---
 
-## 12. TROUBLESHOOTING
+## ?? RECURSOS DISPONÍVEIS NO PROJETO
 
-### Problema: Personagem não se move
-**Solução:** Verifique se IMC_Default está atribuído em BP_PlayerCharacter
+### Assets Já Presentes:
+- `Content/ThirdPerson/` - Template completo de third person
+- `Content/Assets/LevelPrototyping/` - Geometria básica para testes
+- `Content/Assets/Weapons_Free/` - Modelos de armas
+- `Content/Assets/Military_Free/` - Assets militares
+- `Content/StarterContent/` - Content padrão do UE5
 
-### Problema: Tiro não funciona
-**Solução:** Verifique se BP_Projectile está atribuído em Projectile Class
-
-### Problema: Inimigos não aparecem
-**Solução:** Certifique-se que BP_WorldGenerator chamou Generate() no BeginPlay
-
-### Problema: Game Over não aparece
-**Solução:** Verifique se o evento On Death está bound no Event Graph
-
----
-
-## 13. MELHORIAS FUTURAS (PÓS-ALPHA)
-
-- [ ] Adicionar animações para personagem e inimigos
-- [ ] Adicionar sons de tiro, dano, morte
-- [ ] Adicionar HUD com vida do jogador
-- [ ] Melhorar geração de mapa com corredores
-- [ ] Adicionar diferentes tipos de inimigos
-- [ ] Adicionar sistema de armas diferentes
-- [ ] Adicionar pickups (munição, vida)
+### Use estes assets para:
+- Meshes de teste para projéteis
+- Meshes para inimigos
+- Decoração de níveis
+- Props diversos
 
 ---
 
-## ? CONCLUSÃO
-
-Após seguir este guia, você terá uma versão alpha jogável com:
-- ? Movimento (andar, pular, correr)
-- ? Sistema de tiro
-- ? Menu principal
-- ? Mapa procedural com salas
-- ? Inimigos com IA
-- ? Sistema de dano
-- ? Game Over
-
-**Divirta-se testando! ??**
+**Última Atualização:** 2024
+**Versão do UE:** 5.4.4
+**Projeto:** PtahsTale (Cthulhu Roguelike)

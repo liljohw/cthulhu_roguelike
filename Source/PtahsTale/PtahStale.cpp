@@ -1,4 +1,4 @@
-#include "PtahStale.h"
+﻿#include "PtahsTale.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, PtahStale, "PtahStale");
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, PtahsTale, "PtahsTale");
