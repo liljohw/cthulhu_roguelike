@@ -6,6 +6,9 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "Combat/HealthComponent.h"
+#include "Combat/Projectile.h"
+#include "Kismet/GameplayStatics.h"
 
 APtahStaleCharacter::APtahStaleCharacter()
 {
@@ -40,6 +43,9 @@ APtahStaleCharacter::APtahStaleCharacter()
 	CharacterStats = CreateDefaultSubobject<UCoCCharacterStats>(TEXT("CharacterStats"));
 	SanitySystem   = CreateDefaultSubobject<USanitySystem>(TEXT("SanitySystem"));
 	SkillSystem    = CreateDefaultSubobject<USkillSystem>(TEXT("SkillSystem"));
+
+	// Create Health Component
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 }
 
 void APtahStaleCharacter::BeginPlay()
@@ -82,6 +88,9 @@ void APtahStaleCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		EnhancedInput->BindAction(JumpAction,  ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 		EnhancedInput->BindAction(MoveAction,  ETriggerEvent::Triggered, this, &APtahStaleCharacter::Move);
 		EnhancedInput->BindAction(LookAction,  ETriggerEvent::Triggered, this, &APtahStaleCharacter::Look);
+		EnhancedInput->BindAction(ShootAction, ETriggerEvent::Triggered, this, &APtahStaleCharacter::Shoot);
+		EnhancedInput->BindAction(SprintAction, ETriggerEvent::Started,  this, &APtahStaleCharacter::StartSprint);
+		EnhancedInput->BindAction(SprintAction, ETriggerEvent::Completed, this, &APtahStaleCharacter::StopSprint);
 	}
 }
 
@@ -119,3 +128,42 @@ void APtahStaleCharacter::SyncSanityWithPow()
 		SanitySystem->RecalculateMaxSanity();
 	}
 }
+
+void APtahStaleCharacter::Shoot()
+{
+	// Check fire rate
+	float CurrentTime = GetWorld()->GetTimeSeconds();
+	if (CurrentTime - LastFireTime < FireRate)
+		return;
+
+	LastFireTime = CurrentTime;
+
+	// Spawn projectile
+	if (ProjectileClass)
+	{
+		FVector CameraLocation;
+		FRotator CameraRotation;
+		GetActorEyesViewPoint(CameraLocation, CameraRotation);
+
+		FVector MuzzleLocation = CameraLocation + CameraRotation.RotateVector(FVector(100.0f, 0.0f, 0.0f));
+
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.Owner = this;
+		SpawnParams.Instigator = GetInstigator();
+
+		GetWorld()->SpawnActor<AProjectile>(ProjectileClass, MuzzleLocation, CameraRotation, SpawnParams);
+	}
+}
+
+void APtahStaleCharacter::StartSprint()
+{
+	bIsSprinting = true;
+	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+}
+
+void APtahStaleCharacter::StopSprint()
+{
+	bIsSprinting = false;
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+}
+
